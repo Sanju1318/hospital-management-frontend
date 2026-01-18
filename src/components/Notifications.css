@@ -1,0 +1,54 @@
+.page {
+  padding: 20px;
+  background: #f5f7fb;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+/* List */
+.notification-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Card */
+.notify-card {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 6px solid gray;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.notify-card h4 {
+  margin: 0;
+}
+
+.notify-card p {
+  margin: 5px 0 0;
+  color: #555;
+}
+
+.notify-card span {
+  font-size: 12px;
+  color: #777;
+}
+
+/* Types */
+.notify-card.appointment {
+  border-left-color: #2563eb;
+}
+
+.notify-card.medicine {
+  border-left-color: #f59e0b;
+}
+
+.notify-card.report {
+  border-left-color: #16a34a;
+}

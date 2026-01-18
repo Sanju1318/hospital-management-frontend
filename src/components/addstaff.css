@@ -1,0 +1,65 @@
+
+
+.hospital-form-wrapper {
+ 
+  max-width: 350px;
+  margin: 35px auto 0 auto;
+  background: #f5f8fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(30, 47, 52, 0.13);
+  padding: 24px;
+}
+
+.hospital-staff-form .form-title {
+  text-align: center;
+  color: #2874a6;
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.form-group {
+  margin-bottom: 17px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+  color: #546e7a;
+}
+
+.form-group input[type="text"] {
+  padding: 7px;
+  border: 1px solid #b0bfc7;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fff;
+}
+
+.form-group input[type="file"] {
+  margin-top: 6px;
+}
+
+.image-preview img {
+  margin-top: 8px;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid #b0c4de;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 10px 0;
+  background: #2874a6;
+  color: #fff;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
