@@ -67,7 +67,7 @@ export default function HospitalAuth() {
         body: JSON.stringify({ userName, password })
       });
 
-      const data = await res.json();
+      const data = await res.text();
 
       if (res.ok) {
         localStorage.setItem("token", data.token);
