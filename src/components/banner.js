@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import './banner.css'; // apni styling yaha import karo
 import image1 from './image1.png'
+import { Link } from 'react-router-dom';
 
 const Banner = () => {
   const bannerRef = useRef(null);
@@ -47,14 +48,14 @@ const Banner = () => {
           advanced medical technology for healthy tomorrow.
         </p>
         <div className="banner-buttons">
-          <a href="/bookappointment" className="banner-btn primary pulse-hover">
+          <Link to="/bookappointment" className="banner-btn primary pulse-hover">
             <span className="btn-text">Book Appointment</span>
             <span className="btn-icon">→</span>
-          </a>
-          <a href="/service" className="banner-btn secondary slide-hover">
+          </Link>
+          <Link to="/service" className="banner-btn secondary slide-hover">
             <span className="btn-text">Our Services</span>
             <span className="btn-icon">+</span>
-          </a>
+          </Link>
         </div>
         
         {/* Stats counter */}

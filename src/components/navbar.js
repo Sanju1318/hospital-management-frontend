@@ -46,18 +46,18 @@ const Navbar = () => {
                 <span className="link-text">Services</span>
                 <span className="link-underline"></span>
               </Link>
-              <a href="/doctor" className="nav-link" onClick={closeMobileMenu}>
+              <Link to="/doctor" className="nav-link" onClick={closeMobileMenu}>
                 <span className="link-text">Doctors</span>
                 <span className="link-underline"></span>
-              </a>
-              <a href="/about" className="nav-link" onClick={closeMobileMenu}>
+              </Link>
+              <Link to="/about" className="nav-link" onClick={closeMobileMenu}>
                 <span className="link-text">About</span>
                 <span className="link-underline"></span>
-              </a>
-              <a href="/contact" className="nav-link" onClick={closeMobileMenu}>
+              </Link>
+              <Link to="/contact" className="nav-link" onClick={closeMobileMenu}>
                 <span className="link-text">Contact</span>
                 <span className="link-underline"></span>
-              </a>
+              </Link>
               
             </div>
 
