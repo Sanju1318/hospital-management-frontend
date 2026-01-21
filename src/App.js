@@ -11,7 +11,7 @@ function App() {
   const role = localStorage.getItem("role");
 
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       {/* Navbar only when logged in */}
       {token && (role === "ADMIN" ? <Adminnavbar /> : <Navbar />)}
 
