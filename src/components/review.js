@@ -11,13 +11,55 @@ const Review = () => {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  // ✅ Deploy-safe BASE_URL
+  const BASE_URL = process.env.REACT_APP_API_URL || '';
+  console.log('Review BASE_URL:', BASE_URL);
+
+  // ===================== FETCH REVIEWS =====================
+  const fetchReviews = async (pg = 0) => {
+    if (!BASE_URL) {
+      console.error('BASE_URL undefined. Check .env variable.');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(`${BASE_URL}/user/review/page?page=${pg}&size=2`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      if (result && result.content) {
+        setReviews(result.content);
+        setTotalPages(result.totalPages);
+        setPage(result.number);
+      } else {
+        setReviews([]);
+      }
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+      setReviews([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // ===================== SUBMIT REVIEW =====================
   const submitReview = async () => {
     if (!pname || !preview || !pstar) {
       alert('Please fill all fields and select a rating');
+      return;
+    }
+
+    if (!BASE_URL) {
+      alert('Server URL not set. Cannot submit review.');
       return;
     }
 
@@ -28,47 +70,25 @@ const Review = () => {
     try {
       const response = await fetch(`${BASE_URL}/user/review`, {
         method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json' 
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
-
-      if (response.ok) {
-        alert('Review Added Successfully');
-        setPname('');
-        setPreview('');
-        setPstar(0);
-        fetchReviews(page); // refresh current page
-      } else {
-        alert(result.message || 'Failed to add review');
+      if (!response.ok) {
+        const result = await response.json().catch(() => ({}));
+        throw new Error(result.message || `HTTP error! status: ${response.status}`);
       }
+
+      alert('Review Added Successfully');
+      setPname('');
+      setPreview('');
+      setPstar(0);
+      fetchReviews(page); // refresh current page
     } catch (error) {
-      console.error(error);
-      alert('Server error. Please try again later.');
+      console.error('Error submitting review:', error);
+      alert(error.message || 'Server error. Please try again later.');
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  // ===================== FETCH REVIEWS =====================
-  const fetchReviews = async (pg = 0) => {
-    try {
-      const response = await fetch(`${BASE_URL}/user/review/page?page=${pg}&size=2`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      });
-
-      const result = await response.json();
-      if (result && result.content) {
-        setReviews(result.content);
-        setTotalPages(result.totalPages);
-        setPage(result.number);
-      }
-    } catch (error) {
-      console.error('Error fetching reviews:', error);
     }
   };
 
@@ -80,6 +100,10 @@ const Review = () => {
     fetchReviews(page);
   }, [page]);
 
+  if (loading) {
+    return <h2 style={{ textAlign: 'center' }}>Loading reviews... ⏳</h2>;
+  }
+
   return (
     <section className="review-section">
       <div className="review-header">
@@ -90,6 +114,7 @@ const Review = () => {
       </div>
 
       <div className="review-content">
+        {/* ===================== REVIEW FORM ===================== */}
         <div className="review-form-container">
           <div className="form-card">
             <h3 className="form-title">Share Your Experience</h3>
@@ -153,6 +178,7 @@ const Review = () => {
           </div>
         </div>
 
+        {/* ===================== REVIEWS DISPLAY ===================== */}
         <div className="reviews-display">
           <div className="reviews-header">
             <h3 className="reviews-title">What Our Patients Say</h3>

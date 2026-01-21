@@ -6,8 +6,8 @@ const Gallary = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Base URL from ENV
-  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  // ✅ Correct env variable name
+  const BASE_URL = process.env.REACT_APP_API_URL || ""; // fallback empty string
 
   useEffect(() => {
     view();
@@ -15,7 +15,17 @@ const Gallary = () => {
 
   const view = async () => {
     try {
+      if (!BASE_URL) {
+        console.error("BASE_URL is undefined. Check your .env variable.");
+        setShow([]);
+        return;
+      }
+
       const res = await fetch(`${BASE_URL}/gallary`);
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
       const result = await res.json();
 
       if (Array.isArray(result)) {
@@ -40,7 +50,7 @@ const Gallary = () => {
   };
 
   const navigateImage = (direction) => {
-    if (!selectedImage) return;
+    if (!selectedImage || show.length === 0) return;
 
     const currentIndex = selectedImage.index;
     const newIndex =
@@ -52,7 +62,11 @@ const Gallary = () => {
   };
 
   if (loading) {
-    return <h2 style={{ textAlign: "center" }}>Loading gallery...</h2>;
+    return (
+      <h2 style={{ textAlign: "center" }}>
+        Loading gallery... ⏳
+      </h2>
+    );
   }
 
   return (
@@ -94,7 +108,9 @@ const Gallary = () => {
       {selectedImage && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeModal}>×</button>
+            <button className="modal-close" onClick={closeModal}>
+              ×
+            </button>
 
             <button
               className="modal-nav modal-prev"

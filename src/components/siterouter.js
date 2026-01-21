@@ -35,69 +35,51 @@ const Siterouter = () => {
       {/* 🔐 ADMIN PROTECTED ROUTES */}
       <Route
         path="/addstaff"
-        element={
-          token && role === "ADMIN" ? <Addstaff /> : <Navigate to="/hospitalauth" />
-        }
+        element={token && role === "ADMIN" ? <Addstaff /> : <Navigate to="/hospitalauth" replace />}
       />
 
       <Route
         path="/addgallary"
-        element={
-          token && role === "ADMIN" ? <AddGallary /> : <Navigate to="/hospitalauth" />
-        }
+        element={token && role === "ADMIN" ? <AddGallary /> : <Navigate to="/hospitalauth" replace />}
       />
 
       <Route
         path="/adddoctor"
-        element={
-          token && role === "ADMIN" ? <AddLeader /> : <Navigate to="/hospitalauth" />
-        }
+        element={token && role === "ADMIN" ? <AddLeader /> : <Navigate to="/hospitalauth" replace />}
       />
 
       <Route
         path="/patientForm"
-        element={
-          token ? <PatientForm /> : <Navigate to="/hospitalauth" />
-        }
+        element={token ? <PatientForm /> : <Navigate to="/hospitalauth" replace />}
       />
 
       <Route
-        path="/dashbord"
-        element={
-          token && role === "ADMIN" ? <Dashboard /> : <Navigate to="/hospitalauth" />
-        }
+        path="/dashboard"
+        element={token && role === "ADMIN" ? <Dashboard /> : <Navigate to="/hospitalauth" replace />}
       />
 
       <Route
         path="/adminPharmacy"
-        element={
-          token && role === "ADMIN" ? <Adminpharmacy /> : <Navigate to="/hospitalauth" />
-        }
+        element={token && role === "ADMIN" ? <Adminpharmacy /> : <Navigate to="/hospitalauth" replace />}
       />
 
       <Route
         path="/adminReports"
-        element={
-          token && role === "ADMIN" ? <AdminReports /> : <Navigate to="/hospitalauth" />
-        }
+        element={token && role === "ADMIN" ? <AdminReports /> : <Navigate to="/hospitalauth" replace />}
       />
 
       <Route
         path="/doctorSchedule"
-        element={
-          token && role === "ADMIN" ? <DoctorSchedule /> : <Navigate to="/hospitalauth" />
-        }
+        element={token && role === "ADMIN" ? <DoctorSchedule /> : <Navigate to="/hospitalauth" replace />}
       />
 
       <Route
         path="/notification"
-        element={
-          token ? <Notifications /> : <Navigate to="/hospitalauth" />
-        }
+        element={token ? <Notifications /> : <Navigate to="/hospitalauth" replace />}
       />
 
-      {/* ❌ WRONG URL */}
-      <Route path="*" element={<Navigate to="/" />} />
+      {/* ❌ CATCH-ALL ROUTE */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };
