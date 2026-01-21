@@ -11,7 +11,7 @@ function App() {
 
   return (
     <>
-    <Navbar
+    <Navbar/>
       {/* Navbar only when logged in */}
       {token && (role === "ADMIN" ? <Adminnavbar /> : <Navbar />)}
 
